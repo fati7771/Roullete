@@ -1,0 +1,321 @@
+:root {
+    --bg-color: #1a202c; /* Очень темный фон */
+    --container-bg: #2d3748; /* Фон контейнера */
+    --text-color: #e2e8f0; /* Светлый текст */
+    --input-bg: #4a5568; /* Фон полей ввода */
+    --input-border: #a0aec0; /* Граница полей ввода */
+    --button-add-bg: #4299e1; /* Синяя кнопка "Добавить" */
+    --button-spin-bg: #e53e3e; /* Красная кнопка "Крутить" */
+    --button-remove-bg: #718096; /* Серая кнопка "Удалить" */
+    --modal-bg: #2d3748; /* Фон модального окна */
+    --modal-text: #e2e8f0; /* Текст модального окна */
+    --pointer-color: #f6ad55; /* Оранжевая стрелка */
+    --center-circle-bg: #1a202c; /* Цвет центрального круга */
+    --center-circle-border: #a0aec0; /* Граница центрального круга */
+}
+
+
+body {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--bg-color); /* Темный фон */
+    color: var(--text-color); /* Светлый текст */
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: var(--container-bg); /* Темный фон контейнера */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    max-width: 650px;
+    width: 100%;
+}
+
+h1 {
+    color: #63b3ed; /* Голубой заголовок */
+    margin-bottom: 25px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+.input-add-section {
+    display: flex; /* Размещение в строку */
+    gap: 10px; /* Отступ между элементами */
+    margin-bottom: 20px;
+    flex-wrap: wrap; /* Перенос на новую строку на узких экранах */
+    justify-content: center;
+    align-items: center;
+}
+
+.input-group {
+     display: flex;
+     gap: 10px;
+     flex-grow: 1; /* Занимает доступное место */
+     flex-wrap: wrap; /* Перенос полей ввода, если не влезают */
+     justify-content: center; /* Центрирование полей при переносе */
+}
+
+.input-add-section input[type="text"],
+.input-add-section input[type="number"] {
+    padding: 10px;
+    border: 1px solid var(--input-border);
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: var(--input-bg); /* Темный фон поля ввода */
+    color: var(--text-color); /* Светлый текст в поле */
+    box-sizing: border-box;
+    flex-grow: 1; /* Растягиваются */
+    min-width: 120px; /* Минимальная ширина */
+}
+
+.input-add-section input::placeholder {
+    color: #a0aec0; /* Цвет плейсхолдера */
+}
+
+
+button {
+    padding: 10px 25px;
+    font-size: 17px;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
+    margin: 5px 0; /* Вертикальные отступы */
+    box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+    color: white; /* Белый текст на кнопках */
+    font-weight: bold;
+}
+
+button:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+
+#addItemBtn {
+    background-color: var(--button-add-bg); /* Синий */
+    flex-shrink: 0; /* Не сжимается */
+}
+
+#addItemBtn:hover:not(:disabled) {
+    background-color: #3182ce; /* Темнее синий */
+}
+
+#spinBtn {
+    background-color: var(--button-spin-bg); /* Красный */
+    font-size: 22px;
+    padding: 14px 30px;
+    margin-top: 25px;
+    width: auto; /* Ширина по содержимому */
+}
+
+#spinBtn:hover:not(:disabled) {
+    background-color: #c53030; /* Темнее красный */
+}
+
+#spinBtn:disabled {
+    background-color: var(--button-remove-bg); /* Серый */
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+
+.item-list {
+    list-style: none; /* Убираем маркеры списка */
+    padding: 0;
+    margin: 0 0 20px 0; /* Отступ снизу */
+    max-height: 150px; /* Ограничиваем высоту списка */
+    overflow-y: auto; /* Добавляем скролл, если элементов много */
+    text-align: left;
+    border: 1px solid var(--input-border);
+    border-radius: 5px;
+    background-color: var(--input-bg); /* Фон списка как у полей ввода */
+    padding: 10px;
+}
+
+.item-list-item {
+    background-color: #2d3748; /* Чуть темнее фон элемента списка */
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    display: flex; /* Размещение в строку */
+    justify-content: space-between; /* Элементы по краям */
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    word-break: break-word; /* Перенос длинных названий */
+}
+
+.item-list-item:last-child {
+    margin-bottom: 0; /* Убираем нижний отступ у последнего элемента */
+}
+
+.item-name {
+    font-weight: bold;
+    margin-right: 10px;
+    flex-grow: 1; /* Название занимает макс место */
+}
+
+.item-weight {
+    font-size: 0.9em;
+    color: #a0aec0; /* Серый цвет веса */
+    margin-right: 10px;
+    flex-shrink: 0; /* Не сжимается */
+}
+
+.remove-item-btn {
+    background-color: #e53e3e; /* Красная кнопка удаления */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 3px 8px; /* Меньший размер кнопки */
+    font-size: 14px;
+    cursor: pointer;
+    line-height: 1; /* Выравнивание символа × */
+    box-shadow: none; /* Убираем тень по умолчанию */
+    flex-shrink: 0; /* Не сжимается */
+}
+
+.remove-item-btn:hover {
+    background-color: #c53030;
+}
+
+
+.wheel-container {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    margin: 30px auto;
+    border-radius: 50%;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.5), 0 10px 20px rgba(0,0,0,0.3);
+    background-color: #3a4556; /* Фон контейнера рулетки */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#rouletteCanvas {
+    display: block;
+    border-radius: 50%;
+    transition: transform 5s cubic-bezier(0.1, 0.7, 0.2, 1);
+    /* Цвета секторов будут заданы в JS */
+}
+
+.pointer {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 40px solid var(--pointer-color); /* Оранжевая стрелка */
+    z-index: 10;
+    filter: drop-shadow(0 3px 5px rgba(0,0,0,0.5));
+}
+
+.center-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70px; /* Чуть больше */
+    height: 70px;
+    background-color: var(--center-circle-bg); /* Темный */
+    border-radius: 50%;
+    border: 6px solid var(--center-circle-border); /* Светлая обводка */
+    z-index: 11;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+    pointer-events: none;
+}
+
+
+/* --- Стили для модального окна (Темная тема) --- */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Более темный полупрозрачный фон */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.4s ease;
+}
+
+.modal-overlay.visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: var(--modal-bg); /* Темный фон модалки */
+    color: var(--modal-text); /* Светлый текст модалки */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+    transform: scale(0.8); /* Начальный размер для анимации */
+    transition: transform 0.4s ease;
+    border: 1px solid rgba(255,255,255,0.1); /* Легкая граница */
+}
+
+.modal-overlay.visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    color: #63b3ed; /* Голубой заголовок модалки */
+    font-size: 26px;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+#modalResult {
+    font-size: 32px; /* Крупнее */
+    font-weight: bold;
+    color: #48bb78; /* Зеленый для выигрыша */
+    margin-bottom: 20px;
+    word-wrap: break-word;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #a0aec0; /* Светло-серый крестик */
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-button:hover {
+    color: #cbd5e0; /* Светлее при наведении */
+}
+
+.modal-close-btn {
+    background-color: var(--button-remove-bg); /* Серый цвет кнопки закрытия */
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.modal-close-btn:hover {
+    background-color: #5a6268;
+}
